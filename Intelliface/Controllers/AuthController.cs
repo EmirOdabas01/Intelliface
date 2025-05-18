@@ -12,14 +12,11 @@ namespace Intelliface.Controllers
         private readonly ILogger<AuthController> _logger;
         private readonly HttpClient _httpClient;
 
-        public AuthController(ILogger<AuthController> logger)
+        public AuthController(ILogger<AuthController> logger, IHttpClientFactory httpClientFactory )
         {
             _logger = logger;
 
-            _httpClient = new HttpClient
-            {
-                BaseAddress = new Uri("http://localhost:5206")  
-            };
+            _httpClient = httpClientFactory.CreateClient("IntellifaceClient");
         }
 
         [HttpGet]
@@ -27,11 +24,7 @@ namespace Intelliface.Controllers
         {
             return View();
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
-
+       
         [HttpPost]
         public async Task<IActionResult> Login(LoginVM user)
         {
@@ -47,7 +40,7 @@ namespace Intelliface.Controllers
 
             if (response.IsSuccessStatusCode)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Dashboard");
             }
             else
             {

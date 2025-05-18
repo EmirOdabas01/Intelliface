@@ -1,0 +1,88 @@
+﻿
+.main {
+    flex-grow: 1;
+    padding: 30px;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.title {
+    font-size: 22px;
+    font-weight: 600;
+    color: #3a5eff;
+}
+
+.breadcrumb {
+    font-size: 14px;
+    color: #999;
+    margin-bottom: 30px;
+}
+
+.add-button {
+    padding: 8px 16px;
+    background: #3a5eff;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+    margin-bottom: 20px;
+}
+
+.table-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.dark-mode .table-container {
+    background-color: #2e2e3e;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background-color: #f9f9f9;
+    color: #156afc;
+}
+
+.dark-mode th {
+    background-color: #444;
+    color: white;
+}
+
+.dark-mode td {
+    border-color: #555;
+    color: white;
+}
+
+.actions img {
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+.delete-icon {
+    filter: brightness(0) saturate(100%) invert(19%) sepia(97%) saturate(4236%) hue-rotate(353deg) brightness(91%) contrast(102%);
+}
+
+.edit-icon {
+    filter: invert(0);
+}
+
+.dark-mode .edit-icon {
+    filter: invert(1);
+}

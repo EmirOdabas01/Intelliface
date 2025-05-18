@@ -1,50 +1,106 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
+    <script>
+        if (localStorage.getItem('darkMode') === 'true') {
+          document.documentElement.classList.add('dark-mode');
+        }
+    </script>
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Intelliface</title>
-    <script type="importmap"></script>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Intelliface.styles.css" asp-append-version="true" />
+    <title>Dashboard - IntelliFace</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+    <link rel="stylesheet" href="~/css/sidebar.css" />
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Intelliface</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-           @RenderBody()
-        </main>
-    </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - Intelliface - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+<body>
+    <aside class="sidebar">
+        <div class="logo-container">
+            <a href="Dashboard.html">
+                <img src="images/intelliface.svg" alt="Logo Light" class="logo light-mode-img">
+                <img src="images/logo - white.svg" alt="Logo Dark" class="logo dark-mode-img">
+            </a>
         </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+        <ul>
+            <li class="active">
+                <a href="Dashboard.html">
+                    <img src="images/layout-grid.svg" class="icon">
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="attendance.html">
+                    <img src="images/calendar-days.svg" class="icon">
+                    <span>Attendance</span>
+                </a>
+            </li>
+            <li>
+                <a href="employee.html">
+                    <img src="images/square-user.svg" class="icon">
+                    <span>Employee</span>
+                </a>
+            </li>
+            <li>
+                <a href="Location.html">
+                    <img src="images/map-pinned.svg" class="icon">
+                    <span>Location</span>
+                </a>
+            </li>
+            <li>
+                <a href="department.html">
+                    <img src="images/department-svgrepo-com.svg" class="icon">
+                    <span>Department</span>
+                </a>
+            </li>
+            <li style="margin-top: auto;">
+                <a href="login.html" style="color: red;">
+                    <img src="images/log-out.svg" class="icon">
+                    <span>Logout</span>
+                </a>
+            </li>
+            <li class="dark-mode-toggle">
+                <img src="images/sun_17936655.png" alt="Toggle Dark Mode" onclick="toggleDarkMode()" class="icon">
+            </li>
+        </ul>
+    </aside>
+
+
+
+    @RenderBody();
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+          }
+
+          const ctx = document.getElementById('attendanceChart').getContext('2d');
+          new Chart(ctx, {
+            type: 'line',
+            data: {
+              labels: ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00'],
+              datasets: [
+                { label: 'Present', data: [30, 40, 35, 50, 60, 95, 75], borderColor: 'blue', fill: false, tension: 0.3 },
+                { label: 'Absent', data: [20, 15, 25, 20, 25, 35, 25], borderColor: 'orange', fill: false, tension: 0.3 },
+                { label: 'Attendance Rate', data: [25, 30, 40, 38, 50, 70, 60], borderColor: 'green', fill: false, tension: 0.3 }
+              ]
+            },
+            options: {
+              responsive: true,
+              scales: {
+                y: { beginAtZero: true }
+              }
+            }
+          });
+        });
+
+        function toggleDarkMode() {
+          document.body.classList.toggle('dark-mode');
+          localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+        }
+    </script>
 </body>
+
 </html>

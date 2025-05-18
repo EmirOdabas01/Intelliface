@@ -1,0 +1,40 @@
+﻿@{
+    ViewData["Title"] = "Index Page";
+}
+<link rel="stylesheet" href="~/css/dashboard.css" />
+<main class="main">
+    <div class="topbar">
+        <input type="text" placeholder="Search" class="search-box">
+        <div>
+            <img src="images/man-user-circle-icon copy.svg" alt="User" class="user-img">
+        </div>
+    </div>
+
+    <div class="header">
+        <h1>Dashboard</h1>
+        <p>Home / Dashboard</p>
+    </div>
+
+    <div class="cards">
+        <div class="card">
+            <h4>Present | Today</h4>
+            <h2>145</h2>
+            <small>12% increase</small>
+        </div>
+        <div class="card">
+            <h4>Absent | Today</h4>
+            <h2>145</h2>
+            <small>12% increase</small>
+        </div>
+        <div class="card">
+            <h4>Attendance | This Month</h4>
+            <h2>145</h2>
+            <small>12% increase</small>
+        </div>
+    </div>
+
+    <div class="chart-card">
+        <h4>Reports | Today</h4>
+        <canvas id="attendanceChart" height="100"></canvas>
+    </div>
+</main>

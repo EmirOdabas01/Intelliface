@@ -1,0 +1,157 @@
+﻿.dark-mode body {
+    background: #1f1f2e;
+    color: #f0f0f0;
+}
+
+.sidebar h2 {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.light-mode-logo, .dark-mode-logo {
+    width: 130px;
+    height: 130px;
+    margin-left: 40px;
+}
+
+.light-mode-logo {
+    display: block;
+}
+
+.dark-mode-logo {
+    display: none;
+}
+
+.dark-mode .light-mode-logo {
+    display: none;
+}
+
+.dark-mode .dark-mode-logo {
+    display: block;
+}
+
+.icon {
+    width: 28px;
+    height: 28px;
+}
+
+/* Layout dışında olan yeni kısımlar */
+.main {
+    flex-grow: 1;
+    padding: 30px;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.title {
+    font-size: 22px;
+    font-weight: 600;
+    color: #3a5eff;
+    margin-bottom: 10px;
+}
+
+.breadcrumb {
+    font-size: 14px;
+    color: #999;
+    margin-bottom: 20px;
+}
+
+.employee-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+    .employee-header button {
+        padding: 8px 16px;
+        background: #3a5eff;
+        font-size: 14px;
+        border: none;
+        color: white;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+.table-box {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.dark-mode .table-box {
+    background-color: #2e2e3e;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    background-color: #f9f9f9;
+    color: #3a5eff;
+    padding: 10px 8px;
+}
+
+td {
+    text-align: center;
+    padding: 10px 8px;
+    border: 1px solid #d8d2d2;
+}
+
+.dark-mode th, .dark-mode td {
+    border-color: #444;
+    color: #fff;
+}
+
+.dark-mode th {
+    background-color: #444;
+}
+
+.actions img {
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.delete-icon {
+    filter: brightness(0) saturate(100%) invert(19%) sepia(97%) saturate(4236%) hue-rotate(353deg) brightness(91%) contrast(102%);
+}
+
+.search-box {
+    float: right;
+    margin-bottom: 10px;
+}
+
+    .search-box input {
+        padding: 6px 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+.dark-mode .search-box input {
+    background-color: #2e2e3e;
+    color: #fff;
+    border: 1px solid #ccc;
+}
+
+.dark-mode-toggle {
+    margin-top: 20px;
+    text-align: left;
+}
+
+    .dark-mode-toggle img {
+        width: 28px;
+        height: 28px;
+        cursor: pointer;
+        filter: invert(0);
+    }
+
+.dark-mode .dark-mode-toggle img {
+    filter: invert(1);
+}

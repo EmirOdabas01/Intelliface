@@ -1,0 +1,105 @@
+﻿
+  
+    <link rel="stylesheet" href="~/css/location.css" />
+    <main class="main">
+        <div class="topbar">
+            <input type="text" placeholder="Search" style="padding: 8px 12px; border-radius: 6px; border: 1px solid #ccc; width: 250px;">
+            <div><img src="images/man-user-circle-icon copy.svg" alt="User"></div>
+        </div>
+        <div class="title">Location</div>
+        <div class="breadcrumb">Manage / <strong>Location</strong></div>
+        <div class="location-form">
+            <input type="text" id="locationName" placeholder="Enter location name">
+            <input type="text" id="employeeName" placeholder="Enter employee name">
+            <button onclick="addLocation()">Add Location</button>
+        </div>
+        <div class="table-box">
+            <table>
+                <thead>
+                    <tr>
+                        <th>LocationId</th>
+                        <th>Location Name</th>
+                        <th>Employee</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="locationTable"></tbody>
+            </table>
+        </div>
+    </main>
+
+    <script>
+      
+
+        function loadLocations() {
+          const sampleData = [
+            { id: 1, data: { name: 'Headquarters', employee: 'OSAMA ADEL' } },
+            { id: 2, data: { name: 'IT Lab', employee: 'ABDULLAH ALSHALFI'} },
+            { id: 3, data: { name: 'Marketing Wing', employee: 'EMIR ODABAŞ' } },
+            { id: 4, data: { name: 'IT Lab', employee: 'Aziz' } }
+          ];
+
+          const table = document.getElementById('locationTable');
+          table.innerHTML = '';
+          sampleData.forEach((item, index) => {
+            table.innerHTML += `
+              <tr>
+                <td>${index + 1}</td>
+                <td>${item.data.name}</td>
+                <td>${item.data.employee}</td>
+                <td class="actions">
+                  <button class="action-btn edit" onclick="toggleEdit(this)" title="Edit">
+                    <img src="images/edit-05-svgrepo-com.svg" alt="Edit" class="edit-icon" style="width:18px; height:18px;">
+                  </button>
+                  <button class="action-btn delete" onclick="deleteLocation(${item.id})" title="Delete">
+                    <img src="images/trash.png" alt="Delete" style="width:18px; height:18px;margin-right:20px; filter: brightness(0) saturate(100%) invert(14%) sepia(99%) saturate(7499%) hue-rotate(356deg) brightness(94%) contrast(105%);">
+                  </button>
+                </td>
+              </tr>`;
+          });
+        }
+
+        function toggleEdit(button) {
+          const row = button.closest('tr');
+          const cells = row.querySelectorAll('td:not(.actions)');
+          const isEditable = cells[0].isContentEditable;
+
+          // Toggle edit mode and background
+          cells.forEach(cell => {
+            cell.contentEditable = !isEditable;
+            cell.style.backgroundColor = !isEditable ? '#289c16d4' : '';
+          });
+
+          if (isEditable) {
+            console.log('Saved:', {
+              location: cells[1].innerText,
+              employee: cells[2].innerText
+            });
+          }
+        }
+
+        function deleteLocation(id) {
+          if (!confirm('Are you sure you want to delete this location?')) return;
+          alert('Location deleted successfully.');
+          console.log('Deleted ID:', id);
+          loadLocations();
+        }
+
+        function addLocation() {
+          const name = document.getElementById('locationName').value;
+          const employee = document.getElementById('employeeName').value;
+          if (!name || !employee) return alert('Please fill in both fields.');
+          console.log('Added:', { name, employee });
+          loadLocations();
+        }
+
+        window.onload = function () {
+          loadLocations();
+          if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+          }
+        };
+    </script>
+
+
+

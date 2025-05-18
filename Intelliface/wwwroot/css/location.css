@@ -1,0 +1,139 @@
+﻿.light-mode-logo {
+    display: block;
+}
+
+.dark-mode-logo {
+    display: none;
+}
+
+.dark-mode .dark-mode-logo {
+    display: block;
+}
+
+.sidebar h2 {
+    text-align: center;
+    margin: 20px 0;
+    margin-left: 40px;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.topbar img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.title {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.breadcrumb {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 30px;
+}
+
+.location-form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.location-form input {
+    padding: 10px;
+    width: 300px;
+    border: 1px solid #6c6c6c;
+    border-radius: 20px;
+    background-color: white;
+}
+
+.dark-mode .location-form input {
+    background-color: #2b2b3d;
+    color: #fff;
+    border: 1px solid #ccc;
+}
+
+.location-form button {
+    padding: 10px 15px;
+    border: none;
+    background: #3a5eff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.main {
+    flex-grow: 1;
+    padding: 30px;
+}
+
+.table-box {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.dark-mode .table-box {
+    background: #2e2e3e;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+th {
+    background: #f1f4fb;
+    color: #3a5eff;
+}
+
+.dark-mode th {
+    background: #444;
+    color: #ddd;
+}
+
+.dark-mode td {
+    border-color: #555;
+    color: #fff;
+}
+
+.action-btn {
+    border: none;
+    background: none;
+    cursor: pointer;
+    width: 18px;
+    height: 24px;
+}
+
+.dark-mode .edit-icon {
+    filter: invert(1);
+}
+
+.dark-toggle {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.dark-toggle img {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    filter: invert(0);
+}
+
+.dark-mode .dark-toggle img {
+    filter: invert(1);
+}

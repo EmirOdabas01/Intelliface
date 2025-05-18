@@ -1,0 +1,57 @@
+﻿<link rel="stylesheet" href="~/css/department.css" />
+    <main class="main">
+        <div class="topbar">
+            <input type="text" placeholder="Search" style="padding: 8px 12px; border-radius: 5px; border: 1px solid #ccc; width: 300px;">
+            <div><img src="images/man-user-circle-icon copy.svg" alt="User" style="width: 50px; height: 50px; border-radius: 50%;"></div>
+        </div>
+        <div class="title">Department</div>
+        <div class="breadcrumb">Manage / <strong>Department</strong></div>
+        <button class="add-button">Add Subject</button>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Department Name</th>
+                        <th>Employees</th>
+                        <th>Location</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td contenteditable="false">Management</td>
+                        <td contenteditable="false">Osama</td>
+                        <td contenteditable="false">T BLOCK</td>
+                        <td class="actions">
+                            <img src="images/edit-05-svgrepo-com.svg" class="edit-icon" width="18" onclick="toggleEdit(this)">
+                            <img src="images/trash.png" class="delete-icon" width="18">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td contenteditable="false">Marketing</td>
+                        <td contenteditable="false">Emir</td>
+                        <td contenteditable="false">A BLOCK</td>
+                        <td class="actions">
+                            <img src="images/edit-05-svgrepo-com.svg" class="edit-icon" width="18" onclick="toggleEdit(this)">
+                            <img src="images/trash.png" class="delete-icon" width="18">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+    <script>
+        function toggleEdit(icon) {
+          const row = icon.closest('tr');
+          const isEditing = row.getAttribute('data-editing') === 'true';
+          const tds = row.querySelectorAll('td');
+          for (let i = 1; i <= 3; i++) {
+            tds[i].contentEditable = !isEditing;
+            tds[i].style.backgroundColor = !isEditing ? '#289c16d4' : '';
+          }
+          row.setAttribute('data-editing', !isEditing);
+        }
+    </script>

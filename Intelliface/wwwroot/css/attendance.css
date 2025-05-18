@@ -1,0 +1,105 @@
+﻿.main {
+    flex-grow: 1;
+    padding: 30px;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.title {
+    font-size: 22px;
+    font-weight: 600;
+    color: #3a5eff;
+    margin-bottom: 30px;
+}
+
+.form-box {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.dark-mode .form-box,
+.dark-mode .table-box {
+    background: #2b2b3d;
+    color: #f0f0f0;
+}
+
+select, button, input[type="date"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #3a5eff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.table-box {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.dark-mode .table-box {
+    background-color: #2e2e3e;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    background-color: #f9f9f9;
+    color: #156afc;
+    padding: 12px;
+    text-align: center;
+}
+
+td {
+    padding: 10px;
+    border: 1px solid #d8d2d2;
+    text-align: center;
+}
+
+.dark-mode th,
+.dark-mode td {
+    border-color: #444;
+    color: #fff;
+}
+
+.dark-mode th {
+    background-color: #444;
+}
+
+.delete-icon {
+    filter: brightness(0) saturate(100%) invert(19%) sepia(97%) saturate(4236%) hue-rotate(353deg) brightness(91%) contrast(102%);
+}
+
+.dark-mode-toggle {
+    margin-top: 20px;
+    text-align: left;
+}
+
+    .dark-mode-toggle img {
+        width: 28px;
+        height: 28px;
+        cursor: pointer;
+        filter: invert(0);
+    }
+
+.dark-mode .dark-mode-toggle img {
+    filter: invert(1);
+}
