@@ -1,0 +1,117 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f2f5;
+}
+
+.container {
+    display: flex;
+    background-color: #ffffff;
+    width: 90%;
+    max-width: 1100px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.left {
+    flex: 1;
+    background-color: #f3f6fb;
+    padding: 60px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+    .left img {
+        width: 120px;
+        margin-bottom: 20px;
+    }
+
+    .left h1 {
+        font-size: 28px;
+        margin-bottom: 10px;
+    }
+
+    .left p {
+        font-size: 18px;
+        color: #6c63ff;
+        text-align: center;
+    }
+
+.right {
+    flex: 1;
+    padding: 60px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+form {
+    width: 100%;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.remember {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+    .remember input {
+        margin-right: 8px;
+    }
+
+button {
+    padding: 12px;
+    width: 100%;
+    background-color: #4c6ef5;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+   
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .left, .right {
+        padding: 40px 20px;
+    }
+}
+.input-error {
+    border: 2px solid #e74c3c;  
+    background-color: #ffe6e6;  
+    color: #000;  
+    outline: none;  
+    transition: border-color 0.2s ease;
+    border-radius: 5px;
+}
+
+    .input-error:focus {
+        border-color: #c0392b;  
+        box-shadow: 0 0 5px rgba(231, 76, 60, 0.5);
+        background-color: #ffe6e6;
+    }
+

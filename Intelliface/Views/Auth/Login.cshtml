@@ -1,0 +1,49 @@
+﻿@{
+    Layout = null;
+}
+@model Intelliface.Models.ViewModels.LoginVM
+
+@{
+    var emailPlaceHolder = TempData["EMailError"] as string ?? "E-mail";
+    var passswordPlaceHolder = TempData["PasswordError"] as string ?? "Password";
+}
+
+<DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IntelliFace - Admin Login</title>
+    <link rel="stylesheet" href="~/css/login.css"/>
+</head>
+
+<body>
+    <div class="container">
+        <div class="left">
+            <img src="intelliface.png" alt="IntelliFace Logo">
+            <h1>IntelliFace</h1>
+            <small>Designed for a Smarter Tomorrow</small>
+            <p>Attendance<br><span style="color:rgb(21, 58, 191)">for your business</span></p>
+        </div>
+        <div class="right">
+            <form asp-action="Login" asp-controller="Auth" method="post">
+                    <input type="text" 
+                    placeholder="@emailPlaceHolder"
+                           name="EMail" class="@(TempData["EMailError"] != null ? "input-error" : "")"
+                           required>
+                    <input type="password"
+                    placeholder="@passswordPlaceHolder"
+                           name="Password" class="@(TempData["PasswordError"] != null ? "input-error" : "")"
+                           required>
+                <div class="remember">
+                    <input type="checkbox" id="remember">
+                    <label for="remember">Remember me</label>
+                </div>
+                <button type="submit">Sign in</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
