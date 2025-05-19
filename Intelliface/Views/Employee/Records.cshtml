@@ -1,0 +1,53 @@
+﻿@using Intelliface.Models.ViewModels
+@model List<ReadVM<EmployeeVM>>
+
+<link rel="stylesheet" href="~/css/employee.css"/>
+<main class="main">
+    <div class="topbar">
+        <input type="text" placeholder="Search" style="padding: 8px 12px; width: 300px; border: 1px solid #ccc; border-radius: 5px;">
+        <div><img src="images/man-user-circle-icon copy.svg" alt="User" style="width: 50px; height: 50px; border-radius: 50%; vertical-align: middle;"></div>
+    </div>
+    <div class="title">Employee</div>
+    <div class="breadcrumb">Manage / Employee</div>
+    <div class="employee-header">
+        <h3></h3>
+        <a href="AddEmployee.html" style="text-decoration: none;"><button>Add Employee</button></a>
+    </div>
+    <div class="table-box">
+        <h3 style="margin-bottom: 15px; text-align: left;">Current Employees</h3>
+        <div class="search-box"><input type="text" placeholder="Search..."></div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Employee name</th>
+                    <th>Surname</th>
+                    <th>Phone number</th>
+                    <th>Email</th>
+                    <th>Password</th>
+                    <th>DepartmentId</th>
+                    <th>IsAdmin</th>
+                    <th>Manage</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.data.name</td>
+                        <td>@item.data.surname</td>
+                        <td>@item.data.phoneNumber</td>
+                        <td>@item.data.email</td>
+                        <td>@item.data.password</td>
+                        <td>@item.data.departmentId</td>
+                        <td>@item.data.isAdmin</td>
+                        <td class "actions">
+                        <img src="images/edit-05-svgrepo-com.svg" alt="Edit" width="18" onclick="toggleEdit(this)">
+                        <img src="images/trash.png" alt="Delete" width="18" class="delete-icon" onclick="confirmDelete(this)">
+                        </td>
+                    </tr>
+                    }
+        </tbody>
+      </table>
+    </div>
+  </main>
+ 
