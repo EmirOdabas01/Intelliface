@@ -1,4 +1,8 @@
-﻿<link rel="stylesheet" href="~/css/create.css"/>
+﻿@using Intelliface.Models.Dtos;
+@using Intelliface.Models.ViewModels;
+@model DepartmentDto
+
+<link rel="stylesheet" href="~/css/create.css"/>
     <main class="main">
         <div class="topbar">
             <input type="text" placeholder="Searchbox"
@@ -14,21 +18,37 @@
 
         <div class="form-container">
             <h3>Add an Employee</h3>
-            <form>
-                <input type="text" placeholder="Name" style="background-color:#2b2b3d00;">
-                <div class="row">
-                    <input type="text" class="username" placeholder="Username"
-                           style="margin-right: 4%;background-color:#2b2b3d00;">
-                    <input type="password" class="password" placeholder="Password" style="background-color:#2b2b3d00;">
-                </div>
-                <input type="email" class="email" placeholder="sam@gmail.com" style="background-color:#2b2b3d00;">
-                <input type="text" class="address" placeholder="Apartment, studio, or floor"
-                       style="background-color:#2b2b3d00;">
-                <div class="buttons">
-                    <button type="submit" class="submit-btn">Submit</button>
-                    <button type="reset" class="reset-btn">Reset</button>
-                </div>
-            </form>
+       
+
+<form asp-action="Create" asp-controller="Employee" method="post">
+    <div class="row">
+        <input type="text" placeholder="Name" name="name" style="background-color:#2b2b3d00;">
+        <input type="text" class="username" name="surname" placeholder="Surname" style="background-color:#2b2b3d00;">
+    </div>
+
+    <input type="password" class="password" name="password" placeholder="Password" style="background-color:#2b2b3d00;">
+    <input type="email" class="email" name="email" placeholder="sam@gmail.com" style="background-color:#2b2b3d00;">
+    <input type="text" class="address" placeholder="Phone Number" name="phoneNumber" style="background-color:#2b2b3d00;">
+
+    
+    <div class="form-group">
+        <label for="SelectedDepartmentId">Department</label>
+        <select asp-for="Id" asp-items="Model.Departments" class="form-control" name="departmentId" style="background-color:#2b2b3d00;">
+            <option value="">-- Select Department --</option>
+        </select>
+
+        
+    </div>
+            <div class="form-group form-check mt-2">
+                <input type="checkbox" class="form-check-input" name="isAdmin" value="true" />
+                <label class="form-check-label">Is Admin</label>
+            </div>
+    <div class="buttons">
+        <button type="submit" class="submit-btn">Submit</button>
+        <button type="reset" class="reset-btn">Reset</button>
+    </div>
+</form>
+
         </div>
     </main>
 
