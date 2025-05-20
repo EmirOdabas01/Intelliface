@@ -10,7 +10,7 @@ namespace Intelliface.Controllers
     public class EmployeeController : Controller
     {
         private readonly HttpClient _httpClient;
-        ILogger<EmployeeController> _Ilogger;
+        private readonly ILogger<EmployeeController> _Ilogger;
 
         public EmployeeController(ILogger<EmployeeController> logger, IHttpClientFactory httpClientFactory)
         {
@@ -23,9 +23,20 @@ namespace Intelliface.Controllers
             response.EnsureSuccessStatusCode();
 
             var json = await response.Content.ReadAsStringAsync();
-            var employees = JsonSerializer.Deserialize<List<ReadVM<EmployeeVM>>>(json); 
+            var employees = JsonSerializer.Deserialize<List<ReadVM<EmployeeVM>>>(json);
 
-            return View(employees);
+            List<string> departmentList = new List<string>();
+
+            for(int i = 0; i < employees.Count; i++)
+            {
+                var depResponse = await _httpClient.GetAsync("api/Department/GetById/" + employees[i].data.departmentId.ToString());
+                var depJson = await depResponse.Content.ReadAsStringAsync();
+
+                var department = JsonSerializer.Deserialize<DepartmentVM>(depJson);
+                departmentList.Add(department.name);
+            }
+
+            return View((employees, departmentList));
         }
 
         [HttpPost]
