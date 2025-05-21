@@ -27,13 +27,17 @@ namespace Intelliface.Controllers
 
             List<string> departmentList = new List<string>();
 
+       
+            var depResponse = await _httpClient.GetAsync("api/Department/GetAll");
+            var depJson = await depResponse.Content.ReadAsStringAsync();
+
+            var departments = JsonSerializer.Deserialize<List<ReadVM<DepartmentVM>>>(depJson);
+
             for(int i = 0; i < employees.Count; i++)
             {
-                var depResponse = await _httpClient.GetAsync("api/Department/GetById/" + employees[i].data.departmentId.ToString());
-                var depJson = await depResponse.Content.ReadAsStringAsync();
+                var x = departments.FirstOrDefault(dep => dep.id == employees[i].data.departmentId);
 
-                var department = JsonSerializer.Deserialize<DepartmentVM>(depJson);
-                departmentList.Add(department.name);
+                departmentList.Add(x.data.name);
             }
 
             return View((employees, departmentList));

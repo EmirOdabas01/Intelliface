@@ -21,19 +21,22 @@ namespace Intelliface.Controllers
 
             var departments = JsonSerializer.Deserialize<List<ReadVM<DepartmentVM>>>(json);
 
-            List<string> locations = new List<string>();
+            List<string> locationList = new List<string>();
 
-            for(int i = 0; i < departments.Count; i++)
+
+            var locResponse = await _httpClient.GetAsync("api/Location/GetAll");
+            var locJson = await locResponse.Content.ReadAsStringAsync();
+
+            var locations = JsonSerializer.Deserialize<List<ReadVM<LocationVM>>>(locJson);
+
+            for (int i = 0; i < departments.Count; i++)
             {
-                var locationResponse = await _httpClient.GetAsync("/api/Location/GetById/" + departments[i].data.locationId.ToString());
-                var locationjson = await locationResponse.Content.ReadAsStringAsync();
+                var x = locations.FirstOrDefault(loc => loc.id == departments[i].data.locationId);
 
-                var location = JsonSerializer.Deserialize<LocationVM>(locationjson);
-
-                locations.Add(location.address);
+                locationList.Add(x.data.address);
             }
 
-            return View((departments, locations));
+            return View((departments, locationList));
         }
     }
 }
