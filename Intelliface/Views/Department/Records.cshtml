@@ -15,6 +15,7 @@
                 <tr>
                     <th>Department Name</th>
                     <th>Location</th>
+                    <th>Manage</th>
                 </tr>
             </thead>
             <tbody>
@@ -25,8 +26,8 @@
                             <td>@Model.Item1[i].data.name</td>
                             <td>@Model.Item2[i]</td>
                             <td class="actions">
-                                <img src="images/edit-05-svgrepo-com.svg" class="edit-icon" width="18" onclick="toggleEdit(this)">
-                                <img src="images/trash.png" class="delete-icon" width="18">
+                                <img src="images/edit-05-svgrepo-com.svg" alt="Edit" width="18" onclick="toggleEdit(this)">
+                                <img src="images/trash.png" alt="Delete" width="18" class="delete-icon" onclick="confirmDelete(this)">
                             </td>
                         </tr>
                     }
@@ -36,15 +37,4 @@
             </table>
         </div>
     </main>
-    <script>
-        function toggleEdit(icon) {
-          const row = icon.closest('tr');
-          const isEditing = row.getAttribute('data-editing') === 'true';
-          const tds = row.querySelectorAll('td');
-          for (let i = 1; i <= 3; i++) {
-            tds[i].contentEditable = !isEditing;
-            tds[i].style.backgroundColor = !isEditing ? '#289c16d4' : '';
-          }
-          row.setAttribute('data-editing', !isEditing);
-        }
-    </script>
+   

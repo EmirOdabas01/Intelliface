@@ -1,54 +1,53 @@
-﻿
-@model DepartmentDto
+﻿@model (DepartmentDto, EmployeeVM)
 
-<link rel="stylesheet" href="~/css/create.css"/>
-    <main class="main">
-        <div class="topbar">
-            <input type="text" placeholder="Searchbox"
-                   style="padding: 8px 12px; width: 300px; border: 1px solid #ccc; border-radius: 5px;">
-            <div>
-                <img src="images/man-user-circle-icon copy.svg" alt="User"
-                     style="width: 50px; height: 50px; border-radius: 50%; vertical-align: middle;">
-            </div>
+@{
+    var employee = Model.Item2;
+    var departments = Model.Item1?.Departments ?? new List<SelectListItem>();
+}
+
+<link rel="stylesheet" href="~/css/create.css" />
+<main class="main">
+    <div class="topbar">
+        <input type="text" placeholder="Searchbox"
+               style="padding: 8px 12px; width: 300px; border: 1px solid #ccc; border-radius: 5px;">
+        <div>
+            <img src="images/man-user-circle-icon copy.svg" alt="User"
+                 style="width: 50px; height: 50px; border-radius: 50%; vertical-align: middle;">
         </div>
-
-        <div class="title">Employee</div>
-        <div class="breadcrumb">Manage / Employee / <strong>Add Employee</strong></div>
-
-        <div class="form-container">
-            <h3>Add an Employee</h3>
-       
-
-<form asp-action="Create" asp-controller="Employee" method="post">
-    <div class="row">
-        <input type="text" placeholder="Name" name="name" style="background-color:#2b2b3d00;">
-        <input type="text" class="username" name="surname" placeholder="Surname" style="background-color:#2b2b3d00;">
     </div>
 
-    <input type="password" class="password" name="password" placeholder="Password" style="background-color:#2b2b3d00;">
-    <input type="email" class="email" name="email" placeholder="sam@gmail.com" style="background-color:#2b2b3d00;">
-    <input type="text" class="address" placeholder="Phone Number" name="phoneNumber" style="background-color:#2b2b3d00;">
+    <div class="title">Employee</div>
+    <div class="breadcrumb">Manage / Employee / <strong>Add Employee</strong></div>
 
-    
-    <div class="form-group">
-        <label for="SelectedDepartmentId">Department</label>
-        <select asp-for="Id" asp-items="Model.Departments" class="form-control" name="departmentId" style="background-color:#2b2b3d00;">
-            <option value="">-- Select Department --</option>
-        </select>
+    <div class="form-container">
+        <h3>Add an Employee</h3>
 
-        
-    </div>
+        <form asp-action="Create" asp-controller="Employee" method="post">
+            <div class="row">
+                <input type="text" placeholder="Name" name="name" value="@employee?.name" style="background-color:#2b2b3d00;">
+                <input type="text" class="username" name="surname" value="@employee?.surname" placeholder="Surname" style="background-color:#2b2b3d00;">
+            </div>
+
+            <input type="password" class="password" name="password" value="@employee?.password" placeholder="Password" style="background-color:#2b2b3d00;">
+            <input type="email" class="email" name="email" value="@employee?.email" placeholder="sam@gmail.com" style="background-color:#2b2b3d00;">
+            <input type="text" class="address" placeholder="Phone Number" value="@employee?.phoneNumber" name="phoneNumber" style="background-color:#2b2b3d00;">
+
+            <div class="form-group">
+                <label for="SelectedDepartmentId">Department</label>
+                <select asp-for="Item2.departmentId" asp-items="departments" class="form-control" name="departmentId" style="background-color:#2b2b3d00;">
+                    <option value="">-- Select Department --</option>
+                </select>
+            </div>
+
             <div class="form-group form-check mt-2">
-                <input type="checkbox" class="form-check-input" name="isAdmin" value="true" />
+                <input type="checkbox" class="form-check-input" name="isAdmin" value="true" @(employee?.isAdmin == true ? "checked" : "") />
                 <label class="form-check-label">Is Admin</label>
             </div>
-    <div class="buttons">
-        <button type="submit" class="submit-btn">Submit</button>
-        <button type="reset" class="reset-btn">Reset</button>
+
+            <div class="buttons">
+                <button type="submit" class="submit-btn">Submit</button>
+                <button type="reset" class="reset-btn">Reset</button>
+            </div>
+        </form>
     </div>
-</form>
-
-        </div>
-    </main>
-
-  
+</main>

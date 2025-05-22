@@ -27,13 +27,13 @@ namespace Intelliface.Controllers
 
             List<string> departmentList = new List<string>();
 
-       
+
             var depResponse = await _httpClient.GetAsync("api/Department/GetAll");
             var depJson = await depResponse.Content.ReadAsStringAsync();
 
             var departments = JsonSerializer.Deserialize<List<ReadVM<DepartmentVM>>>(depJson);
 
-            for(int i = 0; i < employees.Count; i++)
+            for (int i = 0; i < employees.Count; i++)
             {
                 var x = departments.FirstOrDefault(dep => dep.id == employees[i].data.departmentId);
 
@@ -46,7 +46,7 @@ namespace Intelliface.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(EmployeeVM employee)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return Redirect("Create");
             }
@@ -60,8 +60,25 @@ namespace Intelliface.Controllers
             return Redirect("Create");
         }
 
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> Create(int? EmployeeId)
         {
+            EmployeeVM employee = null;
+
+            if (EmployeeId.HasValue)
+            {
+                var empResponse = await _httpClient.GetAsync($"/api/Employee/GetById/{EmployeeId}");
+                if (empResponse.IsSuccessStatusCode)
+                {
+                    var empJson = await empResponse.Content.ReadAsStringAsync();
+                    employee = JsonSerializer.Deserialize<EmployeeVM>(empJson);
+                }
+                else
+                {
+                    // Employee bulunamadı veya hata varsa, null bırakabilir ya da uygun hata mesajı dönebilirsin.
+                    employee = null;
+                }
+            }
+
             var response = await _httpClient.GetAsync("/api/Department/GetAll");
             response.EnsureSuccessStatusCode();
 
@@ -70,14 +87,15 @@ namespace Intelliface.Controllers
 
             var model = new DepartmentDto
             {
-                Departments = departments.Select(dep => new SelectListItem
+                Departments = departments?.Select(dep => new SelectListItem
                 {
                     Value = dep.id.ToString(),
                     Text = dep.data.name
-                }).ToList()
+                }).ToList() ?? new List<SelectListItem>()
             };
-            
-            return View(model);
+
+            return View((model, employee));
         }
+
     }
 }

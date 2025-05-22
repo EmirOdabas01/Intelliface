@@ -43,7 +43,9 @@
             <td>@Model.Item2[i]</td>
             <td>@Model.Item1[i].data.isAdmin</td>
             <td class="actions"> 
+                 <a asp-action="Create" asp-controller="Employee" asp-route-EmployeeId="@Model.Item1[i].id">
                 <img src="images/edit-05-svgrepo-com.svg" alt="Edit" width="18" onclick="toggleEdit(this)">
+                  </a>
                 <img src="images/trash.png" alt="Delete" width="18" class="delete-icon" onclick="confirmDelete(this)">
             </td>
         </tr>
