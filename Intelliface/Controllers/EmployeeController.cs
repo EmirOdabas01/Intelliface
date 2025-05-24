@@ -42,6 +42,26 @@ namespace Intelliface.Controllers
 
             return View((employees, departmentList));
         }
+        public async Task<IActionResult> Create()
+        {
+
+            var response = await _httpClient.GetAsync("/api/Department/GetAll");
+            response.EnsureSuccessStatusCode();
+
+            var json = await response.Content.ReadAsStringAsync();
+            var departments = JsonSerializer.Deserialize<List<ReadVM<DepartmentVM>>>(json);
+
+            var model = new DepartmentDto
+            {
+                Departments = departments?.Select(dep => new SelectListItem
+                {
+                    Value = dep.id.ToString(),
+                    Text = dep.data.name
+                }).ToList() ?? new List<SelectListItem>()
+            };
+
+            return View((model, new ReadVM<EmployeeVM> { }));
+        }
 
         [HttpPost]
         public async Task<IActionResult> Create(EmployeeVM employee)
@@ -59,10 +79,21 @@ namespace Intelliface.Controllers
 
             return Redirect("Create");
         }
-
-        public async Task<IActionResult> Create(int? EmployeeId)
+        [HttpPost]
+        public async Task<IActionResult> Update(EmployeeVM employee, int? id)
         {
-            EmployeeVM employee = null;
+
+            var json = JsonSerializer.Serialize(employee);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await _httpClient.PutAsync($"/api/Employee/Update/{id}", content);
+            response.EnsureSuccessStatusCode();
+
+            return Redirect("Records");
+        }
+        public async Task<IActionResult> Update(int? EmployeeId)
+        {
+            ReadVM<EmployeeVM> employee = null;
 
             if (EmployeeId.HasValue)
             {
@@ -70,11 +101,10 @@ namespace Intelliface.Controllers
                 if (empResponse.IsSuccessStatusCode)
                 {
                     var empJson = await empResponse.Content.ReadAsStringAsync();
-                    employee = JsonSerializer.Deserialize<EmployeeVM>(empJson);
+                    employee = JsonSerializer.Deserialize<ReadVM<EmployeeVM>>(empJson);
                 }
                 else
                 {
-                    // Employee bulunamadı veya hata varsa, null bırakabilir ya da uygun hata mesajı dönebilirsin.
                     employee = null;
                 }
             }
@@ -94,8 +124,23 @@ namespace Intelliface.Controllers
                 }).ToList() ?? new List<SelectListItem>()
             };
 
-            return View((model, employee));
+            return View("Create", (model, employee));
         }
 
+        [HttpDelete]
+        public async Task<IActionResult> Delete(string id)
+        {
+            var response = await _httpClient.DeleteAsync($"/api/Employee/Delete/{id}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                return Ok(); 
+            }
+
+            return StatusCode((int)response.StatusCode, await response.Content.ReadAsStringAsync());
+        }
+
+
+        
     }
 }

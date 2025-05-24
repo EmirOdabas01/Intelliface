@@ -38,5 +38,19 @@ namespace Intelliface.Controllers
 
             return View((departments, locationList));
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(DepartmentVM department)
+        {
+
+
+            return View();
+        }
+
+        public async Task<IActionResult> Create()
+        {
+            return View();
+        }
+
     }
 }
