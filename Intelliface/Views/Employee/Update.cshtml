@@ -1,0 +1,102 @@
+﻿@model (DepartmentDto, ReadVM<EmployeeVM>)
+
+@{
+    var employee = Model.Item2?.data;
+    var departments = Model.Item1?.Departments;
+}
+
+<link rel="stylesheet" href="~/css/create.css" />
+<main class="main">
+    <div class="topbar">
+        <input type="text" placeholder="Searchbox"
+               style="padding: 8px 12px; width: 300px; border: 1px solid #ccc; border-radius: 5px;">
+        <div>
+            <img src="images/man-user-circle-icon copy.svg" alt="User"
+                 style="width: 50px; height: 50px; border-radius: 50%; vertical-align: middle;">
+        </div>
+    </div>
+
+    <div class="title">Employee</div>
+    <div class="breadcrumb">Manage / Employee / <strong> Update Employee</strong></div>
+
+    <div class="form-container">
+        <h3>Update Employee</h3>
+
+        <form id="updateForm">
+           
+             
+                <input type="hidden" name="id" value="@Model.Item2?.id" />
+
+            <div class="row">
+                <input type="text" placeholder="Name"  value="@employee?.name" style="background-color:#2b2b3d00;">
+                <input type="text" class="username"   value="@employee?.surname" placeholder="Surname" style="background-color:#2b2b3d00;">
+            </div>
+
+            <input type="password" class="password" value="@employee?.password" placeholder="Password" style="background-color:#2b2b3d00;">
+            <input type="email" class="email" value="@employee?.email" placeholder="sam@gmail.com" style="background-color:#2b2b3d00;">
+            <input type="text" class="address" placeholder="Phone Number" value="@employee?.phoneNumber"  style="background-color:#2b2b3d00;">
+
+            <div class="form-group">
+                <label for="SelectedDepartmentId">Department</label>
+                <select asp-for="Item2.data.departmentId" asp-items="departments" class="form-control" name="departmentId" style="background-color:#2b2b3d00;">
+                </select>
+            </div>
+
+            <div class="form-group form-check mt-2">
+                <input type="checkbox" class="form-check-input" name="isAdmin" value="true" @(employee?.isAdmin == true ? "checked" : "") />
+                <label class="form-check-label">Is Admin</label>
+            </div>
+
+            <div class="buttons">
+                <button type="submit" class="submit-btn"> Update </button>
+                <button type="reset" class="reset-btn">Reset</button>
+            </div>
+        </form>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $('#updateForm').submit(function (e) {
+                e.preventDefault();
+
+                
+                var id = $('input[name="id"]').val();
+                var name = $('.row input').eq(0).val();
+                var surname = $('.username').val();
+                var password = $('.password').val();
+                var email = $('.email').val();
+                var phoneNumber = $('.address').val();
+                var departmentId = $('select[name="departmentId"]').val();
+                var isAdmin = $('input[name="isAdmin"]').is(':checked');
+
+                
+                var data = {
+                    id: id,
+                    name: name,
+                    surname: surname,
+                    password: password,
+                    email: email,
+                    phoneNumber: phoneNumber,
+                    departmentId: departmentId,
+                    isAdmin: isAdmin
+                };
+
+                 
+                $.ajax({
+                    url: '/Employee/Update/' + id,   
+                    type: 'PUT',
+                    contentType: 'application/json',
+                    data: JSON.stringify(data),
+                    success: function (response) {
+                        alert('Succesfull!');
+                       
+                        window.location.href = '/Employee/Records';
+                    },
+                    error: function (xhr) {
+                        alert('Something went wrong: ' + xhr.responseText);
+                    }
+                });
+            });
+        </script>
+
+    </div>
+</main>

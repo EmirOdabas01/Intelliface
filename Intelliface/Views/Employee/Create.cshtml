@@ -1,13 +1,11 @@
-﻿@model (DepartmentDto, ReadVM<EmployeeVM>)
+﻿@model DepartmentDto
 
 @{
-    var employee = Model.Item2?.data;
-    var departments = Model.Item1?.Departments ?? new List<SelectListItem>();
-    bool isUpdate = string.Equals(ViewContext.RouteData.Values["action"]?.ToString(), "Update", StringComparison.OrdinalIgnoreCase);
-
+  
+    var departments = Model.Departments ?? new List<SelectListItem>();
 }
 
-<link rel="stylesheet" href="~/css/create.css" />
+<link rel="stylesheet" href="~/css/create.css"/>
 <main class="main">
     <div class="topbar">
         <input type="text" placeholder="Searchbox"
@@ -19,41 +17,35 @@
     </div>
 
     <div class="title">Employee</div>
-    <div class="breadcrumb">Manage / Employee / <strong>@(isUpdate ? "Update" : "Add") Employee</strong></div>
+    <div class="breadcrumb">Manage / Employee / <strong>Add Employee</strong></div>
 
     <div class="form-container">
-        <h3>@(isUpdate ? "Update Employee" : "Add an Employee")</h3>
+        <h3> Add an Employee </h3>
 
-        <form asp-action="@(isUpdate ? "Update" : "Create")" asp-controller="Employee" method="post">
-            @* Update işleminde id’yi postlamak için gizli input *@
-            @if (isUpdate)
-            {
-                <input type="hidden" name="id" value="@Model.Item2.id" />
-            }
-
+        <form asp-action= "Create" asp-controller="Employee" method="post">
             <div class="row">
-                <input type="text" placeholder="Name" name="name" value="@employee?.name" style="background-color:#2b2b3d00;">
-                <input type="text" class="username" name="surname" value="@employee?.surname" placeholder="Surname" style="background-color:#2b2b3d00;">
+                <input type="text" placeholder="Name" name="name" style="background-color:#2b2b3d00;">
+                <input type="text" class="username" name="surname" placeholder="Surname" style="background-color:#2b2b3d00;">
             </div>
 
-            <input type="password" class="password" name="password" value="@employee?.password" placeholder="Password" style="background-color:#2b2b3d00;">
-            <input type="email" class="email" name="email" value="@employee?.email" placeholder="sam@gmail.com" style="background-color:#2b2b3d00;">
-            <input type="text" class="address" placeholder="Phone Number" value="@employee?.phoneNumber" name="phoneNumber" style="background-color:#2b2b3d00;">
+            <input type="password" class="password" name="password" placeholder="Password" style="background-color:#2b2b3d00;">
+            <input type="email" class="email" name="email" placeholder="sam@gmail.com" style="background-color:#2b2b3d00;">
+            <input type="text" class="address" placeholder="Phone Number" name="phoneNumber" style="background-color:#2b2b3d00;">
 
             <div class="form-group">
                 <label for="SelectedDepartmentId">Department</label>
-                <select asp-for="Item2.data.departmentId" asp-items="departments" class="form-control" name="departmentId" style="background-color:#2b2b3d00;">
+                <select asp-for="Id" asp-items="departments" class="form-control" name="departmentId" style="background-color:#2b2b3d00;">
                     <option value="">-- Select Department --</option>
                 </select>
             </div>
 
             <div class="form-group form-check mt-2">
-                <input type="checkbox" class="form-check-input" name="isAdmin" value="true" @(employee?.isAdmin == true ? "checked" : "") />
+                <input type="checkbox" class="form-check-input" name="isAdmin" value="true"/>
                 <label class="form-check-label">Is Admin</label>
             </div>
 
             <div class="buttons">
-                <button type="submit" class="submit-btn">@((isUpdate ? "Update" : "Submit"))</button>
+                <button type="submit" class="submit-btn">Submit</button>
                 <button type="reset" class="reset-btn">Reset</button>
             </div>
         </form>

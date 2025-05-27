@@ -44,7 +44,6 @@ namespace Intelliface.Controllers
         }
         public async Task<IActionResult> Create()
         {
-
             var response = await _httpClient.GetAsync("/api/Department/GetAll");
             response.EnsureSuccessStatusCode();
 
@@ -60,7 +59,7 @@ namespace Intelliface.Controllers
                 }).ToList() ?? new List<SelectListItem>()
             };
 
-            return View((model, new ReadVM<EmployeeVM> { }));
+            return View(model);
         }
 
         [HttpPost]
@@ -77,10 +76,10 @@ namespace Intelliface.Controllers
             var response = await _httpClient.PostAsync("/api/Employee/Create", content);
             response.EnsureSuccessStatusCode();
 
-            return Redirect("Create");
+            return RedirectToAction("Records");
         }
-        [HttpPost]
-        public async Task<IActionResult> Update(EmployeeVM employee, int? id)
+        [HttpPut]
+        public async Task<IActionResult> Update(int id, [FromBody] EmployeeVM employee)
         {
 
             var json = JsonSerializer.Serialize(employee);
@@ -89,7 +88,7 @@ namespace Intelliface.Controllers
             var response = await _httpClient.PutAsync($"/api/Employee/Update/{id}", content);
             response.EnsureSuccessStatusCode();
 
-            return Redirect("Records");
+            return RedirectToAction("Records");
         }
         public async Task<IActionResult> Update(int? EmployeeId)
         {
@@ -102,10 +101,6 @@ namespace Intelliface.Controllers
                 {
                     var empJson = await empResponse.Content.ReadAsStringAsync();
                     employee = JsonSerializer.Deserialize<ReadVM<EmployeeVM>>(empJson);
-                }
-                else
-                {
-                    employee = null;
                 }
             }
 
@@ -124,7 +119,7 @@ namespace Intelliface.Controllers
                 }).ToList() ?? new List<SelectListItem>()
             };
 
-            return View("Create", (model, employee));
+            return View((model, employee));
         }
 
         [HttpDelete]

@@ -17,17 +17,19 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
-app.UseRouting();
 
+app.UseHttpsRedirection();
+app.UseStaticFiles(); 
+ 
+app.UseRouting();
 app.UseAuthorization();
 
-app.MapStaticAssets();
+ 
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Auth}/{action=Login}/{id?}")
-    .WithStaticAssets();
+    pattern: "{controller=Auth}/{action=Login}/{id?}"
+);
 
 
 app.Run();

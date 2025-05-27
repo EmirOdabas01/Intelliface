@@ -8,7 +8,7 @@
     </div>
     <div class="title">Department</div>
     <div class="breadcrumb">Manage / <strong>Department</strong></div>
-    <button class="add-button">Add Subject</button>
+    <a href="~/Department/Create"><button class="add-button">Add Department</button></a>
     <div class="table-container">
         <table>
             <thead>
@@ -26,7 +26,9 @@
                             <td>@Model.Item1[i].data.name</td>
                             <td>@Model.Item2[i]</td>
                             <td class="actions">
+                            <a asp-action="Update" asp-controller="Department" asp-route-id="@Model.Item1[i].id">
                                 <img src="images/edit-05-svgrepo-com.svg" alt="Edit" width="18" onclick="toggleEdit(this)">
+                            </a>
                                 <img src="images/trash.png" alt="Delete" width="18" class="delete-icon" onclick="confirmDelete(this)">
                             </td>
                         </tr>
