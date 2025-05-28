@@ -126,13 +126,11 @@ namespace Intelliface.Controllers
         public async Task<IActionResult> Delete(string id)
         {
             var response = await _httpClient.DeleteAsync($"/api/Employee/Delete/{id}");
+            response.EnsureSuccessStatusCode();
+           
 
-            if (response.IsSuccessStatusCode)
-            {
-                return Ok(); 
-            }
-
-            return StatusCode((int)response.StatusCode, await response.Content.ReadAsStringAsync());
+            return RedirectToAction("Records");
+            // return StatusCode((int)response.StatusCode, await response.Content.ReadAsStringAsync());
         }
 
 

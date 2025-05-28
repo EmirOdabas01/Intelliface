@@ -97,16 +97,16 @@ namespace Intelliface.Controllers
 
             var currentLocationData = JsonSerializer.Deserialize<ReadVM<LocationVM>>(currentLocationJson);
 
-            //locations.Add(new ReadVM<LocationVM>()
-            //{
-            //    id = department.id,
-            //    data = new LocationVM
-            //    {
-            //        address = currentLocationData.data.address,
-            //        latitude = currentLocationData.data.latitude,
-            //        longitude = currentLocationData.data.longitude
-            //    }
-            //});
+            locations.Add(new ReadVM<LocationVM>()
+            {
+                id = department.data.locationId,
+                data = new LocationVM
+                {
+                    address = currentLocationData.data.address,
+                    latitude = currentLocationData.data.latitude,
+                    longitude = currentLocationData.data.longitude
+                }
+            });
 
             var model = new LocationDto
             {
@@ -134,6 +134,14 @@ namespace Intelliface.Controllers
 
             return RedirectToAction("Records");
 
+        }
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var response = await _httpClient.DeleteAsync($"/api/Department/Delete/{id}");
+            response.EnsureSuccessStatusCode();
+
+            return RedirectToAction("Records");
         }
     }
 }

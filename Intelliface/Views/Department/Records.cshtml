@@ -29,7 +29,9 @@
                             <a asp-action="Update" asp-controller="Department" asp-route-id="@Model.Item1[i].id">
                                 <img src="images/edit-05-svgrepo-com.svg" alt="Edit" width="18" onclick="toggleEdit(this)">
                             </a>
-                                <img src="images/trash.png" alt="Delete" width="18" class="delete-icon" onclick="confirmDelete(this)">
+                                <a href="#" onclick="confirmDelete(@Model.Item1[i].id)">
+                                <img src="images/trash.png" alt="Delete" width="18" class="delete-icon">
+                                </a>
                             </td>
                         </tr>
                     }
@@ -38,5 +40,25 @@
                 </tbody>
             </table>
         </div>
+    <script>
+                       function confirmDelete(id) {
+            if (confirm("Are you sure to delete this Department?")) {
+                fetch(`/Department/Delete/${id}`, {
+                    method: 'DELETE'
+                })
+                .then(response => {
+                    if (response.ok) {
+
+                        window.location.reload();
+                    } else {
+                        alert("Delete failed.");
+                    }
+                })
+                .catch(error => {
+                    alert("Error: " + error);
+                });
+            }
+        }
+    </script>
     </main>
    
