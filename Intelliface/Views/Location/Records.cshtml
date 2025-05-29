@@ -30,14 +30,38 @@
                         <td>@Model[i].data.latitude</td>
                         <td>@Model[i].data.longitude</td>
                         <td class="actions">
+                                <a asp-action="Update" asp-controller="Location" asp-route-id="@Model[i].id">
                             <img src="images/edit-05-svgrepo-com.svg" alt="Edit" width="18" onclick="toggleEdit(this)">
-                            <img src="images/trash.png" alt="Delete" width="18" class="delete-icon" onclick="confirmDelete(this)">
+                            </a>
+                                <a href="#" onclick="confirmDelete(@Model[i].id)">
+                            <img src="images/trash.png" alt="Delete" width="18" class="delete-icon">
+                            </a>
                         </td>
                     </tr>
                 }
             }
                </tbody>
             </table>
+        <script>
+                           function confirmDelete(id) {
+                if (confirm("Are you sure to delete this Location?")) {
+                    fetch(`/Location/Delete/${id}`, {
+                        method: 'DELETE'
+                    })
+                    .then(response => {
+                        if (response.ok) {
+
+                            window.location.reload();
+                        } else {
+                            alert("Delete failed.");
+                        }
+                    })
+                    .catch(error => {
+                        alert("Error: " + error);
+                    });
+                }
+            }
+        </script>
         </div>
     </main>
 
