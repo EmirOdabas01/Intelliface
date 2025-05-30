@@ -34,7 +34,7 @@
                 @{
     for(int i = 0; i < Model.Item1.Count; i++)
     {
-        <tr>
+                        <tr   onclick="goToDetails(@Model.Item1[i].id)" style="cursor:pointer;">
             <td>@Model.Item1[i].data.name</td>  
             <td>@Model.Item1[i].data.surname</td>  
             <td>@Model.Item1[i].data.phoneNumber</td>
@@ -42,11 +42,11 @@
             <td>@Model.Item1[i].data.password</td>
             <td>@Model.Item2[i]</td>
             <td>@Model.Item1[i].data.isAdmin</td>
-            <td class="actions"> 
-                 <a asp-action="Update" asp-controller="Employee" asp-route-EmployeeId="@Model.Item1[i].id">
+            <td class="actions">
+                                <a  onclick ="event.stopPropagation()" asp-action="Update" onclick="event.stopPropagation()" asp-controller="Employee" asp-route-EmployeeId="@Model.Item1[i].id">
                 <img src="images/edit-05-svgrepo-com.svg" alt="Edit" width="18" onclick="toggleEdit(this)">
                   </a>
-                  <a href="#" onclick="confirmDelete(@Model.Item1[i].id)">
+                                <a   href="#" onclick="event.stopPropagation();confirmDelete(@Model.Item1[i].id)">
                 <img src="images/trash.png" alt="Delete" width="18" class="delete-icon">
                   </a>
             </td>
@@ -75,7 +75,9 @@
                 });
             }
         }
-
+                           function goToDetails(employeeId) {
+            window.location.href = `/Attendance/Details/${employeeId}`;
+        }
 
     </script>
 

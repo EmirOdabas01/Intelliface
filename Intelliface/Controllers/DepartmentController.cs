@@ -20,6 +20,7 @@ namespace Intelliface.Controllers
         public async Task<IActionResult> Records()
         {
             var respone = await _httpClient.GetAsync("/api/Department/GetAll");
+            respone.EnsureSuccessStatusCode();
             var json = await respone.Content.ReadAsStringAsync();
 
             var departments = JsonSerializer.Deserialize<List<ReadVM<DepartmentVM>>>(json);
